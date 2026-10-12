@@ -4,6 +4,10 @@ Plataforma de produção audiovisual e automação de canais faceless para YouTu
 
 O **Dark_print** transforma uma ideia, tema ou roteiro em um vídeo vertical pronto para publicação, com locução neural, trilha sonora, efeitos sonoros (SFX) procedurais nos cortes, acervo de imagens e vídeos em domínio público e sincronização dinâmica de legendas.
 
+<p align="center">
+  <img src="docs/images/dashboard.png" alt="Dark_print Studio de Produção Audiovisual" width="100%">
+</p>
+
 ---
 
 ## Principais Funcionalidades
@@ -26,10 +30,15 @@ O **Dark_print** transforma uma ideia, tema ou roteiro em um vídeo vertical pro
 - **Filtro Avançado:** Busca por clima/humor (*feel*), gênero e faixa de BPM.
 - **Atribuição CC-BY 4.0 Automática:** Formatação pronta para inserção na descrição do vídeo, evitando reivindicações de direitos autorais.
 
-### 4. Diagnóstico de Retenção & Estrutura de Ganchos
+### 4. Banco de Pautas & Diagnóstico de Retenção
+- **Biblioteca de Pautas Prontas:** Acervo de roteiros científicos e históricos estruturados, com tags precisas para busca de mídia livre.
 - **Análise de Cadência Neural:** Medição de palavras por segundo e estimativa de duração real.
 - **Diagnóstico de Ganchos (0-3s):** Pontuação de lacunas de curiosidade e termos de alto impacto.
 - **Variações A/B de Abertura:** Gera 3 alternativas de gancho (Curiosidade, Urgência e Contraintuitivo) aplicáveis com um clique.
+
+<p align="center">
+  <img src="docs/images/catalogo_pautas.png" alt="Banco de Pautas e Roteiros Estruturados" width="100%">
+</p>
 
 ### 5. Funil de Monetização & Comentários Fixados
 - **Gatilhos de Direct (ManyChat):** Gera cópia de comentário fixado com palavras-chave de disparo automático para entrega de materiais gratuitos (lead magnets).
@@ -41,10 +50,18 @@ O **Dark_print** transforma uma ideia, tema ou roteiro em um vídeo vertical pro
 - Execução agendada em segundo plano com perfis configuráveis por canal/nicho.
 - Publicação automática integrada para TikTok e YouTube Shorts.
 
+<p align="center">
+  <img src="docs/images/autopilot.png" alt="Painel do Piloto Automático e Canais Dark" width="100%">
+</p>
+
 ### 7. Interface Pro NLE & Terminal Diagnóstico
 - Painel em tema escuro com estética de suíte profissional de edição (estilo DaVinci Resolve / Linear).
 - **Terminal Drawer:** Console retrátil em tempo real no rodapé com coloração de logs por nível (`[INFO]`, `[SUCCESS]`, `[WARN]`, `[ERROR]`).
 - **Atalho Global:** Pressione `Ctrl + ~` (ou `Ctrl + \``) para abrir ou fechar o console a qualquer momento.
+
+<p align="center">
+  <img src="docs/images/terminal_drawer.png" alt="Terminal Diagnóstico em Tempo Real" width="100%">
+</p>
 
 ---
 
