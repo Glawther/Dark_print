@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark_print — Sistema Integrado de Produção Audiovisual</title>
+  
+  <!-- Inter Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Design System -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       Header & Navigation Bar
+       ====================================================================== -->
+  <header class="header">
+    <a href="#" class="brand">
+      <div class="brand-symbol">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="4"></rect>
+          <polygon points="10 8 16 12 10 16 10 8"></polygon>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">Dark</span>
+        <span class="brand-suffix">_print</span>
+      </div>
+      <span class="brand-tag">v2.4</span>
+    </a>
+
+    <nav class="nav-tabs">
+      <button type="button" class="tab-btn active" data-target="view-studio" id="nav-tab-studio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path><path d="M6 6h10"></path><path d="M6 10h10"></path></svg>
+        Painel de Produção
+      </button>
+      <button type="button" class="tab-btn" data-target="view-batch" id="nav-tab-batch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        Produção em Lote
+      </button>
+      <button type="button" class="tab-btn" data-target="view-autopilot" id="nav-tab-autopilot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        Piloto Automático
+      </button>
+      <button type="button" class="tab-btn" data-target="view-ideas" id="nav-tab-ideas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        Catálogo de Pautas
+      </button>
+      <button type="button" class="tab-btn" data-target="view-tags" id="nav-tab-tags">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        Índice de Acervos & Tags
+      </button>
+      <button type="button" class="tab-btn" data-target="view-gallery" id="nav-tab-gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        Histórico de Vídeos
+      </button>
+    </nav>
+
+    <div class="header-status">
+      <div class="status-badge" id="ffmpeg-status-badge">
+        <span class="dot-status" id="status-dot"></span>
+        <span id="status-text">Motor FFmpeg Pronto</span>
+      </div>
+      <button type="button" class="btn-header" id="btn-open-terminal" title="Terminal de Diagnóstico [Ctrl + `]">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        Terminal
+      </button>
+      <button type="button" class="btn-header" id="btn-open-shortcuts" title="Atalhos de Teclado (?)">
+        <kbd style="background:rgba(255,255,255,0.08); padding:0.1rem 0.35rem; border-radius:3px; font-family:var(--font-mono); font-size:0.75rem;">?</kbd>
+        Atalhos
+      </button>
+      <button type="button" class="btn-header" id="btn-open-settings" title="Configurações de Produção">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Configurações
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       Main App Container
+       ====================================================================== -->
+  <main class="container">
+
+    <!-- Workspace Subheader -->
+    <div class="workspace-bar">
+      <div class="workspace-title-group">
+        <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.2rem;">
+          <span class="studio-status-indicator"></span>
+          <h1>Studio de Produção Audiovisual</h1>
+        </div>
+        <p>Composição automatizada de vídeo, síntese de voz e sincronia de legendas em alta resolução.</p>
+      </div>
+      <div class="workspace-metrics">
+        <div class="metric-pill">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18"></rect><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+          <span>Vídeos Concluídos:</span>
+          <strong id="stat-total-tasks">0</strong>
+        </div>
+        <div class="metric-pill" id="meta-pexels-indicator">
+          <span class="dot-status ok"></span>
+          <span>Acervos:</span>
+          <strong style="color:var(--text-emerald, #10b981);">Multi-Fonte Híbrida</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         VIEW 1: Studio Criador (Main Pipeline)
+         ==================================================================== -->
+    <section id="view-studio" class="view-section active">
+      <div class="studio-grid">
+        
+        <!-- Left Column: Form & Configuration -->
+        <div class="config-column">
+
+          <!-- Clean Setup Toolbar -->
+          <div class="preset-action-bar" id="magic-hero-banner">
+            <div class="preset-action-content">
+              <div class="preset-action-icon">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7"/><path d="M4 10V3"/><path d="M12 21v-9"/><path d="M12 8V3"/><path d="M20 21v-5"/><path d="M20 12V3"/><circle cx="4" cy="14" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="20" cy="16" r="2"/></svg>
+              </div>
+              <div class="preset-action-text">
+                <strong>Predefinição Recomendada (60s Documental)</strong>
+                <span>Carrega pauta calibrada, roteiro estruturado de 150 palavras, busca híbrida e legendas otimizadas.</span>
+              </div>
+            </div>
+            <button type="button" id="btn-magic-fill" class="btn-preset-action" title="Preencher parâmetros recomendados automaticamente">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Carregar Projeto Exemplo
+            </button>
+          </div>
+          
+          <!-- Step 1: Pauta & Roteiro -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="step-indicator">01</span>
+                <span class="step-title">Pauta & Roteiro</span>
+              </div>
+              <span class="card-header-action" id="script-status-hint">Modo Manual ou Assistido</span>
+            </div>
+
+            <!-- Suggested Topic Presets -->
+            <label class="form-label">
+              <span>Pautas Sugeridas:</span>
+              <span class="form-hint">Clique para carregar parâmetros</span>
+            </label>
+            <div class="preset-chips-container" id="preset-chips-container">
+              <!-- Dynamically populated chips -->
+            </div>
+
+            <!-- Subject Input -->
+            <div class="form-group">
+              <label for="video-subject" class="form-label">
+                <span>Título / Tema do Projeto:</span>
+              </label>
+              <div class="input-group">
+                <input type="text" id="video-subject" class="input-text" placeholder="Ex: O que acontece se a Terra parar de girar por 5 segundos?">
+                <button type="button" id="btn-ai-script" class="btn-secondary" style="flex-shrink:0;" title="Gerar apenas o roteiro narrativo">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                  Gerar Roteiro
+                </button>
+              </div>
+            </div>
+
+            <!-- Target Duration Selector -->
+            <div class="form-group">
+              <label class="form-label">
+                <span>Duração Desejada do Vídeo:</span>
+                <span class="form-hint" id="target-duration-hint">Meta mínima: 60s (~150 palavras)</span>
+              </label>
+              <div class="source-selector-bar" id="duration-selector-bar" style="grid-template-columns: repeat(4, 1fr);">
+                <button type="button" class="source-btn" data-duration="30">30s (~75 pal.)</button>
+                <button type="button" class="source-btn active" data-duration="60">1 Minuto (~150 pal.)</button>
+                <button type="button" class="source-btn" data-duration="90">1.5 Minuto (~220 pal.)</button>
+                <button type="button" class="source-btn" data-duration="120">2 Minutos (~300 pal.)</button>
+              </div>
+            </div>
+
+            <!-- Script Editor -->
+            <div class="form-group">
+              <label for="video-script" class="form-label">
+                <span>Roteiro de Locução (Português-BR):</span>
+                <span class="form-hint">Para vídeos de 1 minuto, recomendado: 140 a 170 palavras</span>
+              </label>
+              <textarea id="video-script" class="textarea-input" placeholder="Digite ou gere o texto que será narrado no vídeo..."></textarea>
+              <div class="script-meta">
+                <div style="display:flex; gap:0.75rem; align-items:center;">
+                  <span id="word-count">0 palavras</span>
+                  <span id="est-duration">~0s estimado</span>
+                </div>
+                <button type="button" class="btn-secondary" id="btn-analyze-script" style="padding:0.25rem 0.65rem; font-size:0.75rem;" title="Diagnosticar retenção do roteiro e variações de abertura">
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  Analisar Retenção
+                </button>
+              </div>
+
+              <!-- Retention & Hook Analysis Panel -->
+              <div id="viral-analysis-panel" style="display:none; margin-top:0.75rem; padding:0.85rem; background:rgba(255,255,255,0.02); border:1px solid var(--border-subtle); border-radius:var(--radius-md);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+                  <div style="display:flex; align-items:center; gap:0.5rem;">
+                    <span style="font-size:0.85rem; font-weight:600; color:var(--text-primary);">Diagnóstico de Retenção</span>
+                    <span id="viral-overall-badge" style="font-size:0.7rem; padding:0.15rem 0.45rem; border-radius:4px; background:rgba(16,185,129,0.15); color:#10b981; font-weight:600;">Pontuação: 0/100</span>
+                  </div>
+                  <button type="button" id="btn-close-viral-panel" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.8rem;">✕ Fechar</button>
+                </div>
+
+                <!-- Score gauges grid -->
+                <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:0.6rem; margin-bottom:0.75rem;">
+                  <div style="padding:0.6rem; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-sm); text-align:center;">
+                    <div style="font-size:0.7rem; color:var(--text-muted);">Abertura (0-3s)</div>
+                    <div id="score-hook" style="font-size:1.25rem; font-weight:700; color:var(--accent-primary, #6366f1); margin:0.2rem 0;">0</div>
+                    <div id="score-hook-desc" style="font-size:0.65rem; color:var(--text-muted);">-</div>
+                  </div>
+                  <div style="padding:0.6rem; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-sm); text-align:center;">
+                    <div style="font-size:0.7rem; color:var(--text-muted);">Ritmo de Fala</div>
+                    <div id="score-pacing" style="font-size:1.25rem; font-weight:700; color:#06b6d4; margin:0.2rem 0;">0</div>
+                    <div id="score-pacing-desc" style="font-size:0.65rem; color:var(--text-muted);">-</div>
+                  </div>
+                  <div style="padding:0.6rem; background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.05); border-radius:var(--radius-sm); text-align:center;">
+                    <div style="font-size:0.7rem; color:var(--text-muted);">Duração Cadenciada</div>
+                    <div id="score-duration" style="font-size:1.25rem; font-weight:700; color:#10b981; margin:0.2rem 0;">0s</div>
+                    <div style="font-size:0.65rem; color:var(--text-muted);">@ 2.65 pal./seg</div>
+                  </div>
+                </div>
+
+                <!-- Simulated Retention Milestones -->
+                <div style="margin-bottom:0.75rem;">
+                  <div style="font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">Curva de Retenção Estimada</div>
+                  <div id="retention-milestones-container" style="display:grid; grid-template-columns: repeat(5, 1fr); gap:0.4rem;">
+                    <!-- Milestones injected via JS -->
+                  </div>
+                </div>
+
+                <!-- Actionable Recommendations -->
+                <div style="margin-bottom:0.75rem;">
+                  <div style="font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.35rem;">Recomendações de Retenção</div>
+                  <ul id="viral-recommendations-list" style="margin:0; padding-left:1.1rem; font-size:0.75rem; color:var(--text-muted); line-height:1.45;">
+                  </ul>
+                </div>
+
+                <!-- 3 A/B Hook Variations -->
+                <div>
+                  <div style="font-size:0.75rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">Variações de Abertura (A/B)</div>
+                  <div id="hook-variations-container" style="display:flex; flex-direction:column; gap:0.45rem;">
+                    <!-- Hooks injected via JS -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Materiais Visuais & B-Roll -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="step-indicator">02</span>
+                <span class="step-title">Materiais Visuais & B-Roll</span>
+              </div>
+              <button type="button" class="btn-secondary" id="btn-auto-terms" style="padding:0.25rem 0.55rem; font-size:0.75rem;">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                Otimizar Tags
+              </button>
+            </div>
+
+            <!-- Material Source Selector -->
+            <label class="form-label">
+              <span>Provedor de Mídia & Stock Footage:</span>
+            </label>
+            <div class="source-selector-bar" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0.5rem;">
+              <button type="button" class="source-btn active" data-source="hybrid" id="src-btn-hybrid">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                Híbrido (Multi-Fonte)
+              </button>
+              <button type="button" class="source-btn" data-source="openverse" id="src-btn-openverse">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Openverse (700M+)
+              </button>
+              <button type="button" class="source-btn" data-source="wikimedia" id="src-btn-wikimedia">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                Wikimedia (Imagens)
+              </button>
+              <button type="button" class="source-btn" data-source="nasa" id="src-btn-nasa">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                NASA (Vídeos 4K)
+              </button>
+            </div>
+            <div class="source-selector-bar" style="grid-template-columns: repeat(4, 1fr); margin-bottom: 0.75rem;">
+              <button type="button" class="source-btn" data-source="wikimedia_gif" id="src-btn-wikimedia-gif">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Wikimedia GIFs
+              </button>
+              <button type="button" class="source-btn" data-source="local" id="src-btn-local">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                Acervo Local
+              </button>
+              <button type="button" class="source-btn" data-source="pixabay" id="src-btn-pixabay">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Pixabay (Online)
+              </button>
+              <button type="button" class="source-btn" data-source="pexels" id="src-btn-pexels">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line></svg>
+                Pexels (Online)
+              </button>
+            </div>
+
+            <!-- Hybrid Multi-Source Panel -->
+            <div class="pexels-config-panel" id="hybrid-config-panel" style="display:block;">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span>Motor Híbrido Multi-Fonte (Openverse + Wikimedia + NASA + GIFs)</span>
+                </div>
+                <span class="source-badge-subtle">Padrão do Sistema</span>
+              </div>
+              <p class="pexels-config-desc">
+                Combina simultaneamente acervos livres em alta resolução. Caso um repositório apresente latência, os outros complementam a linha do tempo automaticamente com movimento de câmera Ken Burns.
+              </p>
+            </div>
+
+            <!-- Openverse Panel -->
+            <div class="pexels-config-panel" id="openverse-config-panel" style="display:none; border-color:rgba(16, 185, 129, 0.25);">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span>Openverse API (700M+ Imagens Creative Commons & Domínio Público)</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Sem API Key / Grátis</span>
+              </div>
+              <p class="pexels-config-desc">
+                Pesquisa automática em mais de 700 milhões de imagens de instituições globais (Smithsonian, Met Museum, Flickr CC, NASA). O motor converte cada imagem automaticamente em clipe de vídeo com zoom suave dinâmico (efeito Ken Burns).
+              </p>
+            </div>
+
+            <!-- Wikimedia Images Panel -->
+            <div class="pexels-config-panel" id="wikimedia-config-panel" style="display:none; border-color:rgba(16, 185, 129, 0.25);">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span>Wikimedia Commons (Fotografias & Gravuras Históricas HD)</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Sem API Key / Grátis</span>
+              </div>
+              <p class="pexels-config-desc">
+                Acesso direto a fotografias científicas, gravuras históricas, mapas e documentos em alta definição do acervo global da Wikimedia, animados automaticamente para o vídeo.
+              </p>
+            </div>
+
+            <!-- Wikimedia GIFs Panel -->
+            <div class="pexels-config-panel" id="wikimedia-gif-config-panel" style="display:none; border-color:rgba(16, 185, 129, 0.25);">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span>Wikimedia Animated GIFs (Simulações & Loops Científicos)</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Sem API Key / Grátis</span>
+              </div>
+              <p class="pexels-config-desc">
+                Pesquisa especializada de animações gráficas, simulações orbitais, diagramas biológicos e loops visuais em formato GIF, convertidos instantaneamente para a linha do tempo.
+              </p>
+            </div>
+
+            <!-- NASA Panel -->
+            <div class="pexels-config-panel" id="nasa-config-panel" style="display:none; border-color:rgba(16, 185, 129, 0.25);">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span>NASA Open Video Library (Domínio Público)</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Sem API Key / Grátis</span>
+              </div>
+              <p class="pexels-config-desc">
+                Pesquisa automática e download de filmagens em alta definição direto da biblioteca pública da NASA (Terra, Marte, telescópio James Webb, espaço sideral, foguetes e nebulosas).
+              </p>
+            </div>
+
+            <!-- Local Materials Panel -->
+            <div class="pexels-config-panel" id="local-materials-panel" style="display:none; border-color:var(--border-subtle);">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status ok"></span>
+                  <span id="local-materials-count-text">Acervo Local: 10 arquivos</span>
+                </div>
+                <div style="display:flex; gap:0.4rem; align-items:center;">
+                  <button type="button" class="btn-secondary" id="btn-open-materials-modal" style="font-size:0.75rem; padding:0.25rem 0.5rem;">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Gerenciar Acervo
+                  </button>
+                  <label for="local-file-upload-input" class="btn-secondary" style="font-size:0.75rem; padding:0.25rem 0.5rem; cursor:pointer;">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    Adicionar Mídia
+                  </label>
+                  <input type="file" id="local-file-upload-input" accept="video/mp4,video/quicktime,video/webm,image/png,image/jpeg,image/webp,image/gif" style="display:none;">
+                </div>
+              </div>
+              <p class="pexels-config-desc">
+                Vídeos, imagens e GIFs locais são adaptados e combinados de forma dinâmica para cobrir toda a narração.
+              </p>
+            </div>
+
+            <!-- Pace of Cuts / B-Roll Rhythm -->
+            <div class="form-group" style="margin-top:0.75rem;">
+              <label class="form-label">
+                <span>Ritmo dos Cortes Visuais (B-Roll):</span>
+                <span class="form-hint" id="pace-hint">4s por tomada (Recomendado)</span>
+              </label>
+              <div class="source-selector-bar" id="pace-selector-bar" style="grid-template-columns: repeat(3, 1fr); margin-bottom:0;">
+                <button type="button" class="source-btn" data-pace="3">Dinâmico (3s)</button>
+                <button type="button" class="source-btn active" data-pace="4">Documental (4s)</button>
+                <button type="button" class="source-btn" data-pace="6">Contemplativo (6s)</button>
+              </div>
+            </div>
+
+            <!-- Pixabay Key Config Box -->
+            <div class="pexels-config-panel" id="pixabay-config-panel" style="display:none;">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status warn" id="inline-pixabay-dot"></span>
+                  <span id="inline-pixabay-status-text">Chave Pixabay</span>
+                </div>
+                <a href="https://pixabay.com/api/docs/" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--text-muted); text-decoration:none;">
+                  Obter chave gratuita (5.000 req/h) ↗
+                </a>
+              </div>
+              <p class="pexels-config-desc" id="inline-pixabay-desc">
+                O Pixabay oferece 5.000 requisições gratuitas por hora. Crie sua conta gratuita em pixabay.com/api/docs e cole a chave abaixo para buscar milhões de vídeos HD e 4K.
+              </p>
+              <div class="pexels-input-row" id="inline-pixabay-form">
+                <input type="password" id="input-quick-pixabay-key" class="input-text" placeholder="Cole sua chave da API Pixabay aqui...">
+                <button type="button" class="btn-secondary" id="btn-save-quick-pixabay">Salvar Chave</button>
+              </div>
+            </div>
+
+            <!-- Pexels Key Config Box (Inline) -->
+            <div class="pexels-config-panel" id="pexels-config-panel" style="display:none;">
+              <div class="pexels-config-header">
+                <div class="pexels-config-title">
+                  <span class="dot-status warn" id="inline-pexels-dot"></span>
+                  <span id="inline-pexels-status-text">Chave Pexels Necessária</span>
+                </div>
+                <a href="https://www.pexels.com/api/" target="_blank" rel="noopener noreferrer" style="font-size:0.75rem; color:var(--text-muted); text-decoration:none;">
+                  Obter chave gratuita ↗
+                </a>
+              </div>
+              <p class="pexels-config-desc" id="inline-pexels-desc">
+                Para baixar clipes em alta resolução diretamente do Pexels, insira sua chave gratuita. A chave é ativada instantaneamente sem custo no site oficial.
+              </p>
+              <div class="pexels-input-row" id="inline-pexels-form">
+                <input type="password" id="input-quick-pexels-key" class="input-text" placeholder="Cole sua chave da API Pexels aqui...">
+                <button type="button" class="btn-secondary" id="btn-save-quick-pexels">Salvar Chave</button>
+              </div>
+            </div>
+
+            <!-- Search Terms Tag Manager -->
+            <div class="form-group">
+              <label class="form-label">
+                <span>Palavras-chave em Inglês para Busca de Clipes:</span>
+                <span class="form-hint">Pressione Enter para adicionar</span>
+              </label>
+              <div class="terms-container">
+                <div id="terms-tags-list" class="terms-tags-list"></div>
+                <input type="text" id="term-input-field" class="term-input" placeholder="Digite um termo e pressione Enter...">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Locução & Áudio -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="step-indicator">03</span>
+                <span class="step-title">Locução & Trilha Sonora</span>
+              </div>
+              <span class="card-header-action">Edge-TTS pt-BR</span>
+            </div>
+
+            <label class="form-label">
+              <span>Selecione a Voz para Síntese:</span>
+            </label>
+            <div class="voice-grid" id="voice-grid">
+              <!-- Dynamically populated voices -->
+            </div>
+
+            <!-- Voice Speed Slider -->
+            <div class="form-group">
+              <div class="form-label">
+                <span>Cadência da Locução:</span>
+                <span class="slider-val" id="voice-rate-val">1.15x</span>
+              </div>
+              <div class="slider-group">
+                <input type="range" id="voice-rate-slider" class="range-slider" min="0.8" max="1.4" step="0.05" value="1.15">
+              </div>
+            </div>
+
+            <!-- BGM Select & Volume Slider -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+              <div class="form-group">
+                <label for="bgm-type-select" class="form-label">Trilha Sonora:</label>
+                <div style="display:flex; gap:0.4rem; align-items:center;">
+                  <select id="bgm-type-select" class="select-input">
+                    <option value="random">Trilha Neutra Suave (Aleatória)</option>
+                    <option value="none">Sem Trilha (Apenas Locução)</option>
+                  </select>
+                  <button type="button" class="btn-secondary" id="btn-preview-bgm" title="Ouvir amostra da trilha sonora" style="flex-shrink:0; padding:0.55rem 0.65rem;">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-label">
+                  <span>Volume da Trilha:</span>
+                  <span class="slider-val" id="bgm-vol-val">15%</span>
+                </div>
+                <div class="slider-group" style="padding-top:0.4rem;">
+                  <input type="range" id="bgm-vol-slider" class="range-slider" min="0.0" max="0.5" step="0.02" value="0.15">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Legendas & Formato -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <span class="step-indicator">04</span>
+                <span class="step-title">Tipografia & Formato</span>
+              </div>
+            </div>
+
+            <label class="form-label">
+              <span>Estilo Visual das Legendas:</span>
+            </label>
+            <div class="styles-grid" id="styles-grid">
+              <!-- Dynamically populated styles -->
+            </div>
+
+            <div style="margin-top:1rem; display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+              <div class="form-group">
+                <label for="video-aspect-select" class="form-label">Proporção de Tela:</label>
+                <select id="video-aspect-select" class="select-input">
+                  <option value="9:16" selected>9:16 Vertical (Shorts, Reels)</option>
+                  <option value="16:9">16:9 Horizontal (Padrão Widescreen)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Família Tipográfica:</label>
+                <input type="text" class="input-text" value="BeVietnamPro-Bold" readonly style="opacity:0.75; font-family:var(--font-mono); font-size:0.8rem;">
+              </div>
+            </div>
+
+            <!-- Primary Generate Button -->
+            <div style="margin-top:1.5rem;">
+              <button type="button" id="btn-generate-video" class="btn-generate-hero">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Renderizar Vídeo em Alta Resolução</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Live Monitor & Player -->
+        <div class="preview-column">
+          <div class="preview-sticky">
+            <div class="monitor-card">
+              <div class="card-header">
+                <div class="card-title">
+                  <span class="step-title">Monitor de Saída</span>
+                </div>
+                <div style="display:flex; gap:0.5rem; align-items:center;">
+                  <button type="button" class="btn-secondary" id="btn-toggle-safezone" style="padding:0.25rem 0.55rem; font-size:0.75rem;" title="Exibir margens seguras do TikTok/Instagram Reels">
+                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:2px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    Margens Seguras
+                  </button>
+                  <span class="status-badge" id="task-status-badge">Aguardando</span>
+                </div>
+              </div>
+
+              <!-- Video Player Canvas -->
+              <div class="player-wrapper">
+                <div class="safe-zone-overlay" id="safe-zone-overlay">
+                  <div class="safe-zone-top">TOPO (Interface / Pesquisa)</div>
+                  <div class="safe-zone-box">
+                    <div class="safe-zone-center-label">ÁREA SEGURA VISÍVEL (9:16)</div>
+                  </div>
+                  <div class="safe-zone-right">Botões Laterais</div>
+                  <div class="safe-zone-bottom">Legenda / Nome de Usuário / Áudio</div>
+                </div>
+                <div class="player-placeholder" id="player-placeholder">
+                  <div class="player-placeholder-icon">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="4"></rect><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                  </div>
+                  <div style="font-weight:500; font-size:0.85rem; color:var(--text-primary); margin-bottom:0.25rem;">Nenhum vídeo em reprodução</div>
+                  <div style="font-size:0.75rem; color:var(--text-muted); max-width:240px;">Configure os parâmetros e clique em Iniciar Renderização para compor o arquivo final.</div>
+                </div>
+                <video id="main-video-player" class="video-element" controls playsinline></video>
+              </div>
+
+              <!-- Progress Monitor -->
+              <div class="progress-section" id="progress-section">
+                <div class="progress-header">
+                  <span class="progress-action" id="task-current-action">Iniciando pipeline...</span>
+                  <span class="progress-pct" id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                  <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                </div>
+
+                <div class="task-steps-list">
+                  <div class="step-item" id="step-item-1">
+                    <span class="step-icon-dot"></span>
+                    <span>1. Alocando tarefa e processando parâmetros</span>
+                  </div>
+                  <div class="step-item" id="step-item-2">
+                    <span class="step-icon-dot"></span>
+                    <span>2. Sintetizando locução em alta definição (Edge-TTS)</span>
+                  </div>
+                  <div class="step-item" id="step-item-3">
+                    <span class="step-icon-dot"></span>
+                    <span>3. Alinhando e gerando legendas temporizadas</span>
+                  </div>
+                  <div class="step-item" id="step-item-4">
+                    <span class="step-icon-dot"></span>
+                    <span>4. Coletando materiais e B-roll em alta resolução</span>
+                  </div>
+                  <div class="step-item" id="step-item-5">
+                    <span class="step-icon-dot"></span>
+                    <span>5. Composição de trilha, capa e renderização FFmpeg</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Export & Actions -->
+              <div class="video-actions" id="video-actions">
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; margin-bottom:0.5rem;">
+                  <button type="button" class="btn-primary" id="btn-download-video">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Baixar MP4
+                  </button>
+                  <button type="button" class="btn-secondary" id="btn-copy-video-link" style="justify-content:center;">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copiar Link
+                  </button>
+                </div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem;">
+                  <button type="button" class="btn-secondary" id="btn-download-thumb" style="justify-content:center;" title="Baixar miniatura HD com tipografia chamativa">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Baixar Capa HD
+                  </button>
+                  <button type="button" class="btn-secondary" id="btn-toggle-meta-panel" style="justify-content:center;" title="Ver títulos, ganchos e hashtags otimizadas">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    Kit de Postagem
+                  </button>
+                </div>
+                <button type="button" class="btn-primary" id="btn-publish-social" style="width:100%; margin-top:0.5rem; justify-content:center; background:#0f172a; border-color:#334155;" title="Publicar automaticamente no TikTok e YouTube Shorts">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                  Publicar no TikTok & YouTube Shorts
+                </button>
+                <div id="publish-status-box" style="display:none; margin-top:0.5rem; padding:0.6rem 0.75rem; border-radius:var(--radius-sm); font-size:0.75rem; border:1px solid var(--border-subtle); background:var(--bg-canvas);"></div>
+              </div>
+
+              <!-- Metadata Panel -->
+              <div class="metadata-panel" id="metadata-panel" style="display:none; margin-top:0.75rem;">
+                <div class="metadata-header">
+                  <span class="metadata-title-main">Metadados de Publicação</span>
+                  <button type="button" class="btn-secondary" id="btn-copy-all-meta" style="padding:0.2rem 0.5rem; font-size:0.7rem;">Copiar Tudo</button>
+                </div>
+                
+                <div style="margin-bottom:0.75rem;">
+                  <label class="form-label" style="font-size:0.75rem; margin-bottom:0.35rem;">Títulos Sugeridos (Clique para copiar):</label>
+                  <div id="meta-titles-container" style="display:flex; flex-direction:column; gap:0.35rem;"></div>
+                </div>
+
+                <div style="margin-bottom:0.75rem;">
+                  <label class="form-label" style="font-size:0.75rem; margin-bottom:0.35rem;">Descrição e Gancho:</label>
+                  <div id="meta-desc-box" style="background:var(--bg-canvas); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:0.6rem; font-size:0.78rem; line-height:1.4; color:var(--text-secondary); cursor:pointer;" title="Clique para copiar"></div>
+                </div>
+
+                <!-- Pinned Comment & DM Trigger Section -->
+                <div style="margin-bottom:0.75rem;" id="meta-pinned-comment-section">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.35rem;">
+                    <label class="form-label" style="font-size:0.75rem; margin-bottom:0;">Comentário Fixado & Gatilho de Automação:</label>
+                    <button type="button" class="btn-secondary" id="btn-copy-pinned-comment" style="padding:0.18rem 0.5rem; font-size:0.68rem; background:rgba(99,102,241,0.12); border-color:rgba(99,102,241,0.3); color:#818cf8; cursor:pointer;" title="Copiar apenas o comentário fixado">
+                      Copiar Comentário
+                    </button>
+                  </div>
+                  <div id="meta-pinned-comment-box" style="background:var(--bg-canvas); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-sm); padding:0.6rem; font-size:0.78rem; line-height:1.45; color:var(--text-primary); cursor:pointer; word-break:break-word;" title="Clique para copiar comentário fixado">
+                    <span style="color:var(--text-muted); font-style:italic;">Aguardando geração do comentário fixado...</span>
+                  </div>
+                </div>
+
+                <!-- Longform Bridge & RPM Estimation Card -->
+                <div id="meta-monetization-extra" style="margin-bottom:0.75rem; padding:0.5rem 0.65rem; background:rgba(16,185,129,0.04); border:1px solid rgba(16,185,129,0.2); border-radius:var(--radius-sm); font-size:0.72rem; color:var(--text-secondary); display:none;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem;">
+                    <span style="font-weight:600; color:#34d399;">Projeção de RPM & Audiência:</span>
+                    <span id="meta-monetization-rpm-badge" style="font-size:0.65rem; background:rgba(16,185,129,0.15); color:#10b981; padding:0.1rem 0.35rem; border-radius:3px;">Tier 1: $15-$35 / 100k</span>
+                  </div>
+                  <div id="meta-monetization-details" style="font-size:0.7rem; line-height:1.4; color:var(--text-muted);"></div>
+                </div>
+
+                <div>
+                  <label class="form-label" style="font-size:0.75rem; margin-bottom:0.35rem;">Hashtags Recomendadas (Clique para copiar todas):</label>
+                  <div class="metadata-tags-list" id="meta-hashtags-container"></div>
+                </div>
+              </div>
+
+              <button type="button" class="btn-secondary" id="btn-cancel-task" style="display:none; width:100%; margin-top:0.65rem; color:var(--status-error); border-color:rgba(244,63,94,0.3); font-size:0.75rem; justify-content:center;">
+                Cancelar Renderização
+              </button>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW: Produção em Lote (Batch Production)
+         ==================================================================== -->
+    <section id="view-batch" class="view-section">
+      <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.25rem; font-weight:600; margin-bottom:0.25rem;">Produção de Vídeos em Lote</h2>
+          <p style="color:var(--text-muted); font-size:0.85rem;">Adicione pautas e processe múltiplos vídeos em sequência com composição de áudio, legendas e B-roll.</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <button type="button" class="btn-secondary" id="btn-batch-populate-samples" style="font-size:0.8rem; padding:0.4rem 0.75rem;">
+            Carregar 5 Pautas de Exemplo
+          </button>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1.3fr; gap:1.5rem; align-items:start;">
+        
+        <!-- Batch Settings & Input -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="step-indicator">01</span>
+              <span class="step-title">Configurações do Lote</span>
+            </div>
+            <span style="font-size:0.75rem; color:var(--text-muted);" id="batch-count-label">0 tópicos detectados</span>
+          </div>
+
+          <div class="form-group">
+            <label for="batch-topics-input" class="form-label">
+              <span>Lista de Pautas / Tópicos (um por linha):</span>
+              <span class="form-hint">Cada linha gerará um vídeo completo</span>
+            </label>
+            <textarea id="batch-topics-input" class="textarea-input" style="min-height:160px; font-family:var(--font-mono); font-size:0.82rem;" placeholder="Exemplo:
+O que aconteceria se a Terra parasse de girar por 5 segundos?
+A misteriosa cidade subterrânea de Derinkuyu
+Por que você sente déjà vu? A neurociência explica
+TON 618: O buraco negro que desafia a física
+O mistério da Fossa das Marianas e o fundo do mar"></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+            <div class="form-group">
+              <label for="batch-voice-select" class="form-label">Voz Padrão:</label>
+              <select id="batch-voice-select" class="select-input">
+                <option value="pt-BR-AntonioNeural">Antônio Neural (PT-BR)</option>
+                <option value="pt-BR-FranciscaNeural">Francisca Neural (PT-BR)</option>
+                <option value="pt-BR-ThalitaNeural">Thalita Neural (PT-BR)</option>
+                <option value="en-US-AndrewMultilingualNeural">Andrew Multilingual</option>
+                <option value="en-US-BrianMultilingualNeural">Brian Multilingual</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="batch-style-select" class="form-label">Estilo de Legenda:</label>
+              <select id="batch-style-select" class="select-input">
+                <option value="hormozi_bold" selected>Alto Contraste Amarelo (Shorts/TikTok)</option>
+                <option value="neon_cyberpunk">Ciano e Magenta</option>
+                <option value="minimalist_white">Minimalista Branco</option>
+                <option value="karaoke_pop">Karaokê Destaque Verde</option>
+                <option value="danger_red">Vermelho de Ênfase</option>
+                <option value="gold_luxury">Dourado Clássico</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:1.25rem;">
+            <div class="form-group">
+              <label for="batch-source-select" class="form-label">Acervo de Mídia:</label>
+              <select id="batch-source-select" class="select-input">
+                <option value="hybrid" selected>Híbrido (Multi-Fonte)</option>
+                <option value="openverse">Openverse (700M+ CC)</option>
+                <option value="nasa">NASA (Vídeos 4K)</option>
+                <option value="wikimedia">Wikimedia Commons</option>
+                <option value="pixabay">Pixabay</option>
+                <option value="local">Acervo Local</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="batch-duration-select" class="form-label">Duração Alvo:</label>
+              <select id="batch-duration-select" class="select-input">
+                <option value="60" selected>1 Minuto (~150 palavras)</option>
+                <option value="45">45 Segundos (~115 palavras)</option>
+                <option value="90">1.5 Minuto (~225 palavras)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:1.25rem;">
+            <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-weight:normal; font-size:0.8rem;">
+              <input type="checkbox" id="batch-auto-publish-toggle" style="accent-color:var(--text-primary); width:15px; height:15px;">
+              <span>Publicar cada vídeo concluído no TikTok e YouTube</span>
+            </label>
+          </div>
+
+          <div style="display:flex; gap:0.5rem;">
+            <button type="button" class="btn-primary" id="btn-start-batch" style="flex:1;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              Iniciar Produção em Lote
+            </button>
+            <button type="button" class="btn-secondary" id="btn-stop-batch" style="display:none; color:var(--status-error); border-color:rgba(244,63,94,0.3);">
+              Parar Fila
+            </button>
+          </div>
+        </div>
+
+        <!-- Batch Queue Live Table -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="step-indicator">02</span>
+              <span class="step-title">Fila de Produção Sequencial</span>
+            </div>
+            <div style="display:flex; gap:0.75rem; font-size:0.75rem;">
+              <span>Total: <strong id="batch-stat-total">0</strong></span>
+              <span style="color:var(--text-emerald);">Concluídos: <strong id="batch-stat-done">0</strong></span>
+              <span style="color:var(--status-running);">Em Execução: <strong id="batch-stat-running">0</strong></span>
+            </div>
+          </div>
+
+          <div style="max-height:480px; overflow-y:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-md);">
+            <table class="batch-queue-table" id="batch-table">
+              <thead>
+                <tr>
+                  <th style="width:36px;">#</th>
+                  <th>Pauta / Título</th>
+                  <th style="width:110px;">Status</th>
+                  <th style="width:110px; text-align:right;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="batch-table-body">
+                <tr>
+                  <td colspan="4" style="text-align:center; color:var(--text-muted); padding:2rem;">
+                    Nenhuma pauta na fila. Digite os tópicos ao lado ou clique em "Povoar 5 Pautas Virais".
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW: Piloto Automático (Autopilot Channels)
+         ==================================================================== -->
+    <section id="view-autopilot" class="view-section">
+      <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.25rem; font-weight:600; margin-bottom:0.25rem;">Piloto Automático & Canais Dark</h2>
+          <p style="color:var(--text-muted); font-size:0.85rem;">Geração e postagem 100% autônoma no TikTok e YouTube Shorts com agendamento inteligente em segundo plano.</p>
+        </div>
+        <div style="display:flex; gap:0.75rem; align-items:center;">
+          <button type="button" class="btn-secondary" id="btn-refresh-autopilot" style="font-size:0.8rem; padding:0.4rem 0.75rem;">
+            Atualizar Status
+          </button>
+        </div>
+      </div>
+
+      <!-- Master Status Banner -->
+      <div class="autopilot-status-banner">
+        <div>
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem;">
+            <span class="dot-status ok" id="autopilot-dot-indicator"></span>
+            <strong id="autopilot-banner-status" style="font-size:0.95rem;">Motor Autônomo Ativo</strong>
+          </div>
+          <p style="font-size:0.78rem; color:var(--text-muted); line-height:1.4;" id="autopilot-banner-desc">
+            O robô monitora a cada 60s se algum canal atingiu o intervalo programado para compilar o vídeo e enviar às redes sociais.
+          </p>
+        </div>
+        <div style="display:flex; gap:0.75rem; align-items:center;">
+          <button type="button" class="btn-primary" id="btn-toggle-autopilot-master" style="width:auto; padding:0.45rem 1rem; font-size:0.8rem;">
+            Pausar Piloto Automático
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1rem; margin-bottom:1.5rem;">
+        <div class="card" style="padding:1rem;">
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">Canais Cadastrados</div>
+          <div style="font-size:1.5rem; font-weight:700; font-family:var(--font-mono);" id="autopilot-stat-profiles">0</div>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">Próxima Postagem</div>
+          <div style="font-size:1.15rem; font-weight:600; font-family:var(--font-mono);" id="autopilot-stat-next-run">--:--</div>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <div style="font-size:0.75rem; color:var(--text-muted); margin-bottom:0.25rem;">Vídeos Gerados em Piloto</div>
+          <div style="font-size:1.5rem; font-weight:700; font-family:var(--font-mono); color:var(--text-emerald);" id="autopilot-stat-history-count">0</div>
+        </div>
+      </div>
+
+      <!-- Profiles Grid & Form -->
+      <div style="display:grid; grid-template-columns: 1.4fr 1fr; gap:1.5rem; align-items:start; margin-bottom:2rem;">
+        
+        <!-- Channels Cards List -->
+        <div>
+          <h3 style="font-size:1rem; font-weight:600; margin-bottom:0.75rem;">Canais Programados</h3>
+          <div class="autopilot-profiles-grid" id="autopilot-profiles-container">
+            <!-- Dynamically populated profiles -->
+          </div>
+        </div>
+
+        <!-- Add Profile Form -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="step-indicator">+</span>
+              <span class="step-title">Criar Canal Autônomo</span>
+            </div>
+          </div>
+
+          <form id="form-create-autopilot-profile">
+            <div class="form-group">
+              <label for="ap-input-name" class="form-label">Nome do Canal / Perfil:</label>
+              <input type="text" id="ap-input-name" class="input-text" placeholder="Ex: Ciência Cósmica Diária" required>
+            </div>
+
+            <div class="form-group">
+              <label for="ap-select-category" class="form-label">Nicho / Categoria:</label>
+              <select id="ap-select-category" class="select-input">
+                <option value="Espaço & Astrofísica" selected>Espaço & Astrofísica</option>
+                <option value="Neurociência & Psicologia">Neurociência & Psicologia</option>
+                <option value="Física Quântica & Multiverso">Física Quântica & Multiverso</option>
+                <option value="Abismo Oceânico & Mistérios">Abismo Oceânico & Mistérios</option>
+                <option value="Arqueologia & Civilizações Antigas">Arqueologia & Civilizações</option>
+                <option value="Economia & Dinheiro">Economia & Dinheiro</option>
+                <option value="Geologia & Catástrofes">Geologia Extrema</option>
+                <option value="Inteligência Artificial & Futuro">IA & Futuro</option>
+                <option value="Biologia & Fatos Bizarros">Biologia & Fatos Bizarros</option>
+              </select>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+              <div class="form-group">
+                <label for="ap-select-interval" class="form-label">Frequência:</label>
+                <select id="ap-select-interval" class="select-input">
+                  <option value="6">A cada 6 horas</option>
+                  <option value="12" selected>A cada 12 horas</option>
+                  <option value="24">A cada 24 horas (Diário)</option>
+                  <option value="1">A cada 1 hora (Teste)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ap-select-source" class="form-label">Acervo de Mídia:</label>
+                <select id="ap-select-source" class="select-input">
+                  <option value="hybrid" selected>Híbrido (Multi-Fonte)</option>
+                  <option value="openverse">Openverse (700M+ CC)</option>
+                  <option value="nasa">NASA (Vídeos 4K)</option>
+                  <option value="wikimedia">Wikimedia Commons</option>
+                  <option value="local">Acervo Local</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+              <div class="form-group">
+                <label for="ap-select-voice" class="form-label">Voz da Narração:</label>
+                <select id="ap-select-voice" class="select-input">
+                  <option value="pt-BR-AntonioNeural" selected>Antônio Neural (PT-BR)</option>
+                  <option value="pt-BR-FranciscaNeural">Francisca Neural (PT-BR)</option>
+                  <option value="pt-BR-ThalitaMultilingualNeural">Thalita Neural (PT-BR)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="ap-select-style" class="form-label">Estilo de Legenda:</label>
+                <select id="ap-select-style" class="select-input">
+                  <option value="hormozi_bold" selected>Amarelo Viral (Shorts/TikTok)</option>
+                  <option value="cyber_green">Verde Neon Tecnológico</option>
+                  <option value="pure_white">Branco Documentário BBC</option>
+                  <option value="electric_cyan">Ciano Quântico</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:1.25rem;">
+              <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-weight:normal; font-size:0.8rem;">
+                <input type="checkbox" id="ap-check-autopublish" checked style="accent-color:var(--text-primary); width:15px; height:15px;">
+                <span>Auto-Publicar automaticamente no TikTok e YouTube ao concluir</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width:100%;">
+              Salvar e Ativar Canal
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Execution History Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="step-indicator">LOG</span>
+            <span class="step-title">Histórico de Disparos Automáticos</span>
+          </div>
+        </div>
+
+        <div style="max-height:360px; overflow-y:auto; border:1px solid var(--border-subtle); border-radius:var(--radius-md);">
+          <table class="batch-queue-table" id="autopilot-history-table">
+            <thead>
+              <tr>
+                <th>Canal</th>
+                <th>Pauta / Roteiro</th>
+                <th style="width:140px;">Horário</th>
+                <th style="width:110px;">Status</th>
+                <th style="width:120px; text-align:right;">Social</th>
+              </tr>
+            </thead>
+            <tbody id="autopilot-history-body">
+              <tr>
+                <td colspan="5" style="text-align:center; color:var(--text-muted); padding:2rem;">
+                  Nenhuma execução automática registrada ainda.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         VIEW 2: Banco de Pautas Estruturadas
+         ==================================================================== -->
+    <section id="view-ideas" class="view-section">
+      <div style="margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem;">
+        <div>
+          <h2 style="font-size:1.25rem; font-weight:600; margin-bottom:0.25rem;">Banco de Pautas & Roteiros Estruturados</h2>
+          <p style="color:var(--text-muted); font-size:0.85rem;">20 estruturas narrativas completas calibradas para 60s+ de vídeo com ganchos virais e tags otimizadas.</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <input type="text" id="ideas-search-input" class="input-text" placeholder="Buscar pauta por tema..." style="width:220px; font-size:0.8rem; padding:0.4rem 0.65rem;">
+        </div>
+      </div>
+
+      <!-- Categories Filter Bar -->
+      <div class="preset-chips-container" id="ideas-category-filters" style="margin-bottom:1.25rem;">
+        <button type="button" class="preset-chip active" data-category="all">Todas as Categorias</button>
+        <button type="button" class="preset-chip" data-category="Espaço & Astrofísica">Espaço & Astrofísica</button>
+        <button type="button" class="preset-chip" data-category="Abismo Oceânico & Mistérios">Abismo Oceânico</button>
+        <button type="button" class="preset-chip" data-category="Neurociência & Psicologia">Neurociência</button>
+        <button type="button" class="preset-chip" data-category="Física Quântica & Multiverso">Física Quântica</button>
+        <button type="button" class="preset-chip" data-category="Arqueologia & Civilizações Antigas">Arqueologia</button>
+        <button type="button" class="preset-chip" data-category="Economia & Dinheiro">Economia & Finanças</button>
+        <button type="button" class="preset-chip" data-category="Geologia & Catástrofes">Geologia Extrema</button>
+        <button type="button" class="preset-chip" data-category="Inteligência Artificial & Futuro">IA & Futuro</button>
+        <button type="button" class="preset-chip" data-category="Biologia & Fatos Bizarros">Biologia</button>
+      </div>
+
+      <div class="ideas-grid" id="ideas-lab-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.25rem;">
+        <!-- Dynamically rendered idea cards -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW: Banco de Tags & Prompts Visuais
+         ==================================================================== -->
+    <section id="view-tags" class="view-section">
+      <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <h2 style="font-size:1.25rem; font-weight:600; margin-bottom:0.25rem;">Banco de Tags para Vídeos, Imagens e GIFs</h2>
+          <p style="color:var(--text-muted); font-size:0.85rem;">Clusters de palavras-chave calibrados para Openverse, Wikimedia Commons, NASA, Pixabay e Pexels.</p>
+        </div>
+      </div>
+      <div id="media-tags-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:1.25rem;">
+        <!-- Dynamically rendered tag category cards -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         VIEW 3: Histórico de Produção
+         ==================================================================== -->
+    <section id="view-gallery" class="view-section">
+      <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2 style="font-size:1.25rem; font-weight:600; margin-bottom:0.25rem;">Projetos Concluídos</h2>
+          <p style="color:var(--text-muted); font-size:0.85rem;">Histórico de vídeos processados e arquivos finais para download.</p>
+        </div>
+        <button type="button" class="btn-secondary" onclick="loadGallery()">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+          Atualizar Lista
+        </button>
+      </div>
+
+      <div class="gallery-grid" id="gallery-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:1.25rem;">
+        <!-- Dynamically loaded video cards -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       Modal: Gerenciador do Acervo de Vídeos Locais
+       ====================================================================== -->
+  <div class="modal-overlay" id="modal-materials">
+    <div class="modal-box" style="max-width: 640px;">
+      <div class="modal-header">
+        <h3 class="modal-title">Acervo de Mídias Locais</h3>
+        <button type="button" class="modal-close" id="btn-close-materials-modal">✕</button>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+        <span style="font-size:0.8rem; color:var(--text-muted);" id="materials-modal-summary">Carregando arquivos...</span>
+        <label for="materials-modal-upload-input" class="btn-primary" style="font-size:0.75rem; padding:0.35rem 0.75rem; cursor:pointer; width:auto;">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Adicionar Mídia (MP4 / IMG / GIF)
+        </label>
+        <input type="file" id="materials-modal-upload-input" accept="video/mp4,video/quicktime,video/webm,image/png,image/jpeg,image/webp,image/gif" style="display:none;">
+      </div>
+
+      <div class="materials-list-container" id="materials-modal-list">
+        <!-- Rendered items -->
+      </div>
+
+      <div style="margin-top:1.25rem; display:flex; justify-content:flex-end;">
+        <button type="button" class="btn-secondary" onclick="document.getElementById('modal-materials').classList.remove('active')">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Settings & API Keys Modal
+       ====================================================================== -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Configurações do Sistema</h3>
+        <button type="button" class="modal-close" id="btn-close-modal">✕</button>
+      </div>
+
+      <div class="form-group">
+        <label for="setting-llm-provider" class="form-label">Provedor para Roteirização:</label>
+        <select id="setting-llm-provider" class="select-input">
+          <option value="gemini">Google Gemini (Recomendado / Gratuito)</option>
+          <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
+          <option value="deepseek">DeepSeek (V3 / R1)</option>
+          <option value="moonshot">Moonshot Kimi</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="setting-gemini-key" class="form-label">
+          <span>Chave da API Google Gemini:</span>
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="form-hint" style="color:var(--text-primary); text-decoration:underline;">Obter chave AI Studio ↗</a>
+        </label>
+        <input type="password" id="setting-gemini-key" class="input-text" placeholder="Cole sua chave aqui...">
+      </div>
+
+      <div class="form-group">
+        <label for="setting-openai-key" class="form-label">Chave da API OpenAI:</label>
+        <input type="password" id="setting-openai-key" class="input-text" placeholder="sk-...">
+      </div>
+
+      <div class="form-group">
+        <label for="setting-pexels-key" class="form-label">
+          <span>Chave da API Pexels (Materiais Online):</span>
+          <a href="https://www.pexels.com/api/" target="_blank" rel="noopener noreferrer" class="form-hint" style="color:var(--text-primary); text-decoration:underline;">Obter chave gratuita ↗</a>
+        </label>
+        <input type="password" id="setting-pexels-key" class="input-text" placeholder="Chave da API Pexels...">
+      </div>
+
+      <!-- Social Media Automation (TikTok & YouTube) -->
+      <div style="margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid var(--border-subtle);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+          <h4 style="font-size:0.9rem; font-weight:600; color:var(--text-primary);">Automação Social (TikTok & YouTube Shorts)</h4>
+          <a href="https://upload-post.com" target="_blank" rel="noopener noreferrer" class="form-hint" style="color:var(--text-primary); text-decoration:underline;">Upload-Post ↗</a>
+        </div>
+        <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:1rem; line-height:1.4;">
+          Conecte sua conta do TikTok e canal do YouTube para publicar vídeos gerados de forma automática ou com 1 clique.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1rem;">
+          <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-weight:normal;">
+            <input type="checkbox" id="setting-upload-post-enabled" style="accent-color:var(--text-primary); width:15px; height:15px;">
+            <span>Ativar integração de postagem social</span>
+          </label>
+          <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer; font-weight:normal;">
+            <input type="checkbox" id="setting-upload-post-auto-upload" style="accent-color:var(--text-primary); width:15px; height:15px;">
+            <span>Auto-Upload automático ao concluir cada renderização</span>
+          </label>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+          <div class="form-group">
+            <label for="setting-upload-post-key" class="form-label">API Key Upload-Post:</label>
+            <input type="password" id="setting-upload-post-key" class="input-text" placeholder="Cole sua API Key...">
+          </div>
+          <div class="form-group">
+            <label for="setting-upload-post-user" class="form-label">Usuário / Perfil:</label>
+            <input type="text" id="setting-upload-post-user" class="input-text" placeholder="Nome de usuário...">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1.2fr 1fr; gap:0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Plataformas:</label>
+            <div style="display:flex; gap:0.75rem; align-items:center; padding-top:0.35rem; font-size:0.8rem;">
+              <label style="display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="setting-platform-tiktok" checked style="accent-color:var(--text-primary);">
+                <span>TikTok</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="setting-platform-youtube" checked style="accent-color:var(--text-primary);">
+                <span>YouTube</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:0.35rem; cursor:pointer;">
+                <input type="checkbox" id="setting-platform-instagram" style="accent-color:var(--text-primary);">
+                <span>Instagram</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="setting-upload-post-privacy" class="form-label">Privacidade no YouTube:</label>
+            <select id="setting-upload-post-privacy" class="select-input">
+              <option value="public" selected>Público</option>
+              <option value="unlisted">Não Listado</option>
+              <option value="private">Privado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem; display:flex; justify-content:flex-end; gap:0.5rem;">
+        <button type="button" class="btn-secondary" onclick="document.getElementById('modal-settings').classList.remove('active')">Cancelar</button>
+        <button type="button" class="btn-primary" id="btn-save-settings" style="width:auto; padding:0.5rem 1rem;">Salvar Alterações</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Atalhos de Teclado Pro -->
+  <div id="modal-shortcuts" class="modal-overlay">
+    <div class="modal-card" style="max-width:560px;">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <kbd style="background:rgba(255,255,255,0.08); padding:0.15rem 0.45rem; border-radius:4px; font-family:var(--font-mono); font-size:0.8rem;">⌨</kbd>
+          Atalhos de Teclado do Studio
+        </h3>
+        <button type="button" class="modal-close" onclick="document.getElementById('modal-shortcuts').classList.remove('active')">&times;</button>
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1.25rem;">
+        Controles ergonômicos de alta precisão inspirados nos principais editores de vídeo profissionais (CapCut, Premiere, Descript).
+      </p>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem; font-size:0.8rem;">
+        <div>
+          <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-secondary); margin-bottom:0.75rem; font-weight:600;">Monitor de Vídeo</h4>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Play / Pause</span>
+              <kbd class="kbd-pill">Espaço</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Voltar 3 segundos</span>
+              <kbd class="kbd-pill">J</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Pausar</span>
+              <kbd class="kbd-pill">K</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Avançar 3 segundos</span>
+              <kbd class="kbd-pill">L</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Avançar / Recuar Frame</span>
+              <kbd class="kbd-pill">← / →</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Pular 1 segundo</span>
+              <kbd class="kbd-pill">Shift + ← / →</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Mudo / Desmutar</span>
+              <kbd class="kbd-pill">M</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Tela Cheia (Player)</span>
+              <kbd class="kbd-pill">F</kbd>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-secondary); margin-bottom:0.75rem; font-weight:600;">Fluxo & Navegação</h4>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Renderizar Vídeo</span>
+              <kbd class="kbd-pill">Ctrl + Enter</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Alternar Abas (1 a 6)</span>
+              <kbd class="kbd-pill">Ctrl + 1..6</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Terminal de Diagnóstico</span>
+              <kbd class="kbd-pill">Ctrl + `</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Fechar Janelas</span>
+              <kbd class="kbd-pill">Esc</kbd>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="color:var(--text-muted);">Este Guia de Atalhos</span>
+              <kbd class="kbd-pill">?</kbd>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem; text-align:right;">
+        <button type="button" class="btn-primary" onclick="document.getElementById('modal-shortcuts').classList.remove('active')" style="width:auto; padding:0.4rem 1rem;">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Live Diagnostic Terminal Drawer
+       ====================================================================== -->
+  <aside id="terminal-drawer" class="terminal-drawer" aria-label="Terminal de Diagnóstico e Logs">
+    <div class="terminal-header" id="terminal-header">
+      <div class="terminal-header-left">
+        <span class="terminal-title">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+          DIAGNOSTIC TERMINAL / LOGS
+        </span>
+        <span class="terminal-status-badge" id="terminal-status-badge">
+          <span class="terminal-dot ok" id="terminal-status-dot"></span>
+          <span id="terminal-status-label">Conectado</span>
+        </span>
+        <span class="terminal-badge" id="terminal-log-counter">0 logs</span>
+      </div>
+
+      <div class="terminal-header-right">
+        <label class="terminal-toggle-label" title="Rolar automaticamente para novas mensagens">
+          <input type="checkbox" id="terminal-autoscroll-check" checked>
+          <span>Auto-scroll</span>
+        </label>
+        <button type="button" class="terminal-btn" id="btn-terminal-clear" title="Limpar mensagens do terminal">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          Limpar
+        </button>
+        <button type="button" class="terminal-btn" id="btn-terminal-copy" title="Copiar todos os logs para a área de transferência">
+          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copiar Logs
+        </button>
+        <button type="button" class="terminal-btn-icon" id="btn-terminal-minimize" title="Minimizar Terminal [Ctrl + `]">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Output Console Box -->
+    <div class="terminal-body" id="terminal-console-body" role="log" aria-live="polite">
+      <!-- Structured log entries injected here -->
+    </div>
+  </aside>
+
+  <!-- Bottom Workspace Status Bar / Quick Dock -->
+  <footer class="app-status-bar" id="app-status-bar">
+    <div class="status-bar-left">
+      <span class="status-bar-item">
+        <span class="dot-status ok" id="status-bar-engine-dot"></span>
+        <span id="status-bar-engine-text">Motor FFmpeg: Pronto</span>
+      </span>
+      <span class="status-bar-divider">|</span>
+      <span class="status-bar-item" id="status-bar-task-info">
+        <span class="status-idle-text" id="status-bar-task-text">Standby</span>
+      </span>
+    </div>
+    <div class="status-bar-right">
+      <button type="button" class="terminal-quick-toggle" id="btn-toggle-terminal" title="Alternar Terminal de Diagnóstico [Ctrl + `]">
+        <span class="terminal-indicator-dot" id="terminal-toggle-dot"></span>
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:4px;"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <span class="terminal-quick-text">Terminal</span>
+        <kbd class="terminal-quick-kbd">Ctrl + `</kbd>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Client Script -->
+  <script src="/js/app.js"></script>
+</body>
+</html>
