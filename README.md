@@ -1,66 +1,60 @@
 # Dark_print
 
-Plataforma de produção audiovisual e automação de canais faceless para YouTube Shorts, TikTok e Instagram Reels.
+Gerador de vídeos verticais para YouTube Shorts, TikTok e Instagram Reels.
 
-O **Dark_print** transforma uma ideia, tema ou roteiro em um vídeo vertical pronto para publicação, com locução neural, trilha sonora, efeitos sonoros (SFX) procedurais nos cortes, acervo de imagens e vídeos em domínio público e sincronização dinâmica de legendas.
+A partir de um tema ou roteiro em texto, o Dark_print gera a locução em português, baixa vídeos e imagens de acervos públicos, sintetiza efeitos sonoros nos cortes de cena, mistura a trilha de fundo e renderiza o arquivo final com legendas sincronizadas.
 
 <p align="center">
-  <img src="docs/images/dashboard.png" alt="Dark_print Studio de Produção Audiovisual" width="100%">
+  <img src="docs/images/dashboard.png" alt="Painel principal do Dark_print" width="100%">
 </p>
 
 ---
 
-## Principais Funcionalidades
+## O que o sistema faz
 
-### 1. Motor Híbrido de Mídia (Zero Chaves Obrigatórias)
-- **Internet Archive & Prelinger Archives:** Busca automatizada de filmes históricos, documentários e gravações em domínio público via API oficial do archive.org.
-- **NASA Image & Video Library:** Vídeos e imagens espaciais em alta resolução.
-- **Wikimedia Commons & Openverse:** Acervo livre sob licenças Creative Commons.
-- **Pexels & Pixabay:** Integração direta com suporte a banco de b-roll comercial.
+### Busca de mídia sem chave de API
 
-### 2. Design de Som e SFX Procedurais
-- **Síntese de Áudio Nativa:** Gera arquivos WAV de 16-bit 44.1kHz sem downloads externos usando a biblioteca padrão do Python (`wave`, `struct`, `math`).
-- **Transições Automáticas:** Efeito *whoosh* antecipado em 50ms antes de cada corte de cena.
-- **Impacto no Gancho:** Impacto sub-bass 808 posicionado exatamente no segundo 1.0 para retenção de atenção.
-- **Transientes Mecânicos:** Sons de clique de câmera e *risers* de tensão progressivos.
+Por padrão, o sistema busca clipes e imagens diretamente em acervos públicos que não exigem cadastro:
+- Internet Archive e Prelinger Archives (filmes históricos, documentários e gravações em domínio público via API do archive.org)
+- NASA Image and Video Library (imagens e vídeos espaciais)
+- Wikimedia Commons e Openverse (fotos, gravuras e animações sob licença Creative Commons)
 
-### 3. Catálogo Musical Incompetech (Kevin MacLeod)
-- **Mais de 1.400 faixas** com cache local em disco (`storage/cache/incompetech_pieces.json`).
-- **Fallback Offline:** Biblioteca integrada com os 22 maiores clássicos virais (*Sneaky Snitch*, *Cipher*, *Carefree*, *Darkest Child*, etc.).
-- **Filtro Avançado:** Busca por clima/humor (*feel*), gênero e faixa de BPM.
-- **Atribuição CC-BY 4.0 Automática:** Formatação pronta para inserção na descrição do vídeo, evitando reivindicações de direitos autorais.
+Quem preferir bancos comerciais pode adicionar chaves gratuitas do Pexels ou Pixabay nas configurações, ou usar vídeos próprios na pasta local.
 
-### 4. Banco de Pautas & Diagnóstico de Retenção
-- **Biblioteca de Pautas Prontas:** Acervo de roteiros científicos e históricos estruturados, com tags precisas para busca de mídia livre.
-- **Análise de Cadência Neural:** Medição de palavras por segundo e estimativa de duração real.
-- **Diagnóstico de Ganchos (0-3s):** Pontuação de lacunas de curiosidade e termos de alto impacto.
-- **Variações A/B de Abertura:** Gera 3 alternativas de gancho (Curiosidade, Urgência e Contraintuitivo) aplicáveis com um clique.
+### Efeitos sonoros gerados via código
+
+Os efeitos de transição são sintetizados direto em Python com os módulos nativos `wave`, `struct` e `math` (WAV 16-bit, 44.1kHz), sem depender de pacotes externos de áudio. O pipeline insere um impacto sub-bass (808) no primeiro segundo do vídeo, antecipa cortes de cena em 50ms com som de *whoosh* e adiciona cliques mecânicos e *risers* ao longo da montagem.
+
+### Trilha sonora (Incompetech)
+
+Integra o catálogo de Kevin MacLeod com mais de 1.400 faixas em cache local (`storage/cache/incompetech_pieces.json`) e 22 músicas pré-configuradas para uso offline (*Sneaky Snitch*, *Cipher*, *Carefree*, *Darkest Child*, entre outras). É possível filtrar por gênero, clima e BPM. Ao final da renderização, o sistema gera o bloco de atribuição CC-BY 4.0 pronto para colar na descrição do vídeo.
+
+### Catálogo de pautas e análise de roteiro
+
+Inclui 20 roteiros prontos sobre ciência, história, espaço e economia, já acompanhados de termos de busca em inglês para extração de vídeos. Antes de renderizar, o analisador mede a velocidade de leitura em palavras por segundo, avalia as primeiras frases do texto e sugere três variações de abertura para teste.
 
 <p align="center">
-  <img src="docs/images/catalogo_pautas.png" alt="Banco de Pautas e Roteiros Estruturados" width="100%">
+  <img src="docs/images/catalogo_pautas.png" alt="Catálogo de pautas e roteiros" width="100%">
 </p>
 
-### 5. Funil de Monetização & Comentários Fixados
-- **Gatilhos de Direct (ManyChat):** Gera cópia de comentário fixado com palavras-chave de disparo automático para entrega de materiais gratuitos (lead magnets).
-- **Ponte para Vídeo Longo:** Conversão do tráfego do formato curto para documentários longos de 20 minutos no YouTube.
-- **Avisos de Transparência:** Disclaimers de conformidade com FTC e CONAR para links de afiliados.
-- **Estimador de RPM:** Projeção de receitas para audiências Tier 1 e América Latina.
+### Comentários fixados e estimativa de receita
 
-### 6. Piloto Automático (Autopilot Background Engine)
-- Execução agendada em segundo plano com perfis configuráveis por canal/nicho.
-- Publicação automática integrada para TikTok e YouTube Shorts.
+Junto com o vídeo, o painel gera sugestões de títulos, hashtags e texto de comentário fixado com palavras-chave para automação de respostas ou chamada para vídeos longos. Também inclui avisos de transparência (FTC/CONAR) para links de afiliados e uma calculadora simples de RPM por região.
+
+### Agendamento em segundo plano
+
+Permite criar perfis por tema com intervalo fixo de execução (a cada 6, 12 ou 24 horas). Quando ativo, o agendador sorteia uma pauta inédita, renderiza o vídeo e, se configurado com a API do Upload-Post, envia o arquivo para o TikTok e YouTube Shorts.
 
 <p align="center">
-  <img src="docs/images/autopilot.png" alt="Painel do Piloto Automático e Canais Dark" width="100%">
+  <img src="docs/images/autopilot.png" alt="Painel de agendamento automático" width="100%">
 </p>
 
-### 7. Interface Pro NLE & Terminal Diagnóstico
-- Painel em tema escuro com estética de suíte profissional de edição (estilo DaVinci Resolve / Linear).
-- **Terminal Drawer:** Console retrátil em tempo real no rodapé com coloração de logs por nível (`[INFO]`, `[SUCCESS]`, `[WARN]`, `[ERROR]`).
-- **Atalho Global:** Pressione `Ctrl + ~` (ou `Ctrl + \``) para abrir ou fechar o console a qualquer momento.
+### Terminal de logs no navegador
+
+O rodapé da interface traz um console retrátil (atalho `Ctrl + ~` ou `Ctrl + \``) que transmite em tempo real os logs do FFmpeg, downloads de mídia e status da fila de renderização.
 
 <p align="center">
-  <img src="docs/images/terminal_drawer.png" alt="Terminal Diagnóstico em Tempo Real" width="100%">
+  <img src="docs/images/terminal_drawer.png" alt="Terminal de logs em tempo real" width="100%">
 </p>
 
 ---
@@ -70,55 +64,55 @@ O **Dark_print** transforma uma ideia, tema ou roteiro em um vídeo vertical pro
 ```text
 Dark_print/
 ├── app/
-│   ├── controllers/v1/      # Rotas da API FastAPI (SaaS, LLM, Tarefas)
+│   ├── controllers/v1/      # Rotas da API FastAPI
 │   ├── models/              # Schemas Pydantic e constantes
-│   ├── services/            # Serviços centrais do motor
-│   │   ├── autopilot.py     # Agendador e executor de perfis autônomos
-│   │   ├── incompetech_bgm.py # Catálogo musical e gerador de licença
-│   │   ├── material.py      # Busca híbrida (Archive.org, NASA, Wikimedia)
-│   │   ├── monetization_funnel.py # Comentários fixados e cálculos de RPM
-│   │   ├── sfx.py           # Síntese procedural de efeitos sonoros
-│   │   ├── task.py          # Gerenciador de fila e orquestração de vídeo
-│   │   ├── video.py         # Renderização e composição MoviePy/FFmpeg
-│   │   └── viral_analytics.py # Análise de retenção e ganchos A/B
+│   ├── services/            # Serviços de geração de vídeo e áudio
+│   │   ├── autopilot.py     # Agendador de perfis em segundo plano
+│   │   ├── incompetech_bgm.py # Catálogo musical e atribuição CC-BY
+│   │   ├── material.py      # Busca de mídia (Archive.org, NASA, Wikimedia)
+│   │   ├── monetization_funnel.py # Comentários fixados e cálculo de RPM
+│   │   ├── sfx.py           # Síntese de efeitos sonoros em WAV
+│   │   ├── task.py          # Fila e etapas de processamento
+│   │   ├── video.py         # Composição e corte via MoviePy/FFmpeg
+│   │   └── viral_analytics.py # Métricas de ritmo e variações de abertura
 │   └── utils/               # Utilitários de sistema, cache e arquivos
 ├── resource/
 │   ├── public/              # Interface Web (HTML, CSS, JS)
-│   └── sfx/                 # Arquivos de efeitos sonoros sintetizados
+│   └── sfx/                 # Arquivos de efeitos sonoros gerados
 ├── test/
-│   └── services/            # Bateria de testes unitários e de integração
-├── config.toml.example      # Modelo de configurações locais
-├── pyproject.toml           # Configuração de dependências do Python
-└── start_studio.bat         # Inicializador rápido para Windows
+│   └── services/            # Testes unitários e de integração
+├── config.toml.example      # Exemplo de arquivo de configuração
+├── pyproject.toml           # Dependências do Python
+└── start_studio.bat         # Inicializador para Windows
 ```
 
 ---
 
-## Requisitos do Sistema
+## Requisitos
 
-- **Python:** 3.11 ou superior
-- **FFmpeg:** Instalado e acessível no PATH do sistema operacional
-- **Git**
+- Python 3.11 ou superior
+- FFmpeg instalado e disponível no `PATH` do sistema
+- Git
 
 ---
 
 ## Instalação e Execução
 
-### 1. Clonar o Repositório
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/Glawther/Dark_print.git
 cd Dark_print
 ```
 
-### 2. Configurar o Ambiente Virtual
+### 2. Criar o ambiente virtual
 
-Recomendado via `uv`:
+Com `uv`:
 ```bash
 uv sync --frozen
 ```
 
-Ou via `venv` e `pip`:
+Ou com `venv` e `pip`:
 ```bash
 python -m venv .venv
 
@@ -131,35 +125,32 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Configurar Credenciais (Opcional)
+### 3. Configurar chaves opcionais
 
-Copie o arquivo de exemplo caso deseje adicionar provedores opcionais de LLM ou APIs pagas:
+Copie o arquivo de exemplo se quiser configurar provedores de LLM (Gemini, OpenAI, DeepSeek) ou chaves do Pexels e Pixabay:
 ```bash
 cp config.toml.example config.toml
 ```
 
-> **Nota:** As fontes de mídia livres (Archive.org, NASA, Wikimedia, Openverse) e a síntese de voz gratuita (Edge TTS) funcionam diretamente sem nenhuma chave de API configurada.
+As fontes públicas (Archive.org, NASA, Wikimedia, Openverse) e a locução via Edge-TTS funcionam sem chave de API.
 
-### 4. Iniciar o Studio
+### 4. Iniciar o servidor
 
-#### Windows
-Execute o inicializador rápido:
+No Windows:
 ```cmd
 start_studio.bat
 ```
 
-#### Linha de Comando (Qualquer Sistema)
+Pelo terminal em qualquer sistema:
 ```bash
 python main.py
 ```
 
-O servidor iniciará em **`http://127.0.0.1:8080`**. Acesse a URL no navegador para abrir o Painel de Produção.
+O servidor inicia em `http://127.0.0.1:8080`.
 
 ---
 
-## Executando os Testes
-
-Para executar a bateria de testes automatizados:
+## Testes
 
 ```bash
 python -m pytest test/services/test_archive_org.py test/services/test_autopilot.py test/services/test_incompetech.py test/services/test_monetization_funnel.py test/services/test_sfx.py test/services/test_viral_analytics.py -v
@@ -167,19 +158,19 @@ python -m pytest test/services/test_archive_org.py test/services/test_autopilot.
 
 ---
 
-## Endpoints Principais da API
+## Principais rotas da API
 
 | Método | Endpoint | Descrição |
 |---|---|---|
-| `GET` | `/api/v1/saas/bgm/incompetech` | Pesquisa trilhas musicais por gênero, clima (*feel*) e BPM |
-| `POST` | `/api/v1/saas/script/analyze` | Diagnóstico de retenção de roteiro e geração de ganchos A/B |
-| `POST` | `/api/v1/saas/monetization/funnel` | Gera cópias de comentários fixados e cálculo de RPM |
-| `POST` | `/api/v1/saas/autopilot/profiles` | Cadastra perfil de produção autônoma em segundo plano |
-| `POST` | `/api/v1/saas/autopilot/trigger/{id}` | Dispara execução imediata de um perfil do piloto automático |
-| `GET` | `/api/v1/saas/tasks/{id}/metadata` | Recupera metadados formatados para publicação do vídeo gerado |
+| `GET` | `/api/v1/saas/bgm/incompetech` | Busca faixas musicais por gênero, clima e BPM |
+| `POST` | `/api/v1/saas/script/analyze` | Calcula ritmo de leitura e sugere aberturas alternativas |
+| `POST` | `/api/v1/saas/monetization/funnel` | Gera texto de comentário fixado e estimativa de RPM |
+| `POST` | `/api/v1/saas/autopilot/profiles` | Cria perfil de agendamento em segundo plano |
+| `POST` | `/api/v1/saas/autopilot/trigger/{id}` | Inicia uma execução imediata do perfil agendado |
+| `GET` | `/api/v1/saas/tasks/{id}/metadata` | Retorna título, descrição, hashtags e atribuição da trilha |
 
 ---
 
 ## Licença
 
-Este projeto é distribuído sob os termos da licença [MIT](LICENSE).
+Distribuído sob a licença [MIT](LICENSE).

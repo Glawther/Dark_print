@@ -65,7 +65,7 @@ const TerminalDrawer = {
     }
 
     // Initial boot diagnostics
-    this.appendLog("info", "PrintMoney Studio v2.4 Engine inicializado. Terminal de diagnóstico online.");
+    this.appendLog("info", "Dark_print v2.4 inicializado. Terminal de logs ativo.");
     this.appendLog("info", "Monitorando pipeline de vídeo: Edge-TTS, legendas, acervo de mídias e FFmpeg.");
   },
 
@@ -2864,7 +2864,7 @@ function updateAutopilotBanner(status) {
 
   const isRunning = Boolean(status.running);
   if (dot) dot.className = `dot-status ${isRunning ? "ok" : "err"}`;
-  if (title) title.textContent = isRunning ? "Motor Autônomo Ativo" : "Motor Autônomo Pausado";
+  if (title) title.textContent = isRunning ? "Agendador Ativo" : "Agendador Pausado";
   if (btn) {
     btn.textContent = isRunning ? "Pausar Piloto Automático" : "Retomar Piloto Automático";
     btn.className = isRunning ? "btn-secondary" : "btn-primary";
